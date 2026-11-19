@@ -41,6 +41,21 @@ Every contest on the site follows the same rhythm:
 Most bounties are free to enter. The rare one that charges a fee says so on its page before
 you commit to anything, and the fee is added to that bounty's prize pool.
 
+## The whole loop on one page
+
+In a hurry? Here is the entire journey in nine lines — the rest of this guide is the same
+list with the reasoning left in:
+
+1. Sign in at [make.fun](https://make.fun) and link GitHub + a Solana wallet on your profile.
+2. From inside any kit, run `node cli/makefun.mjs login` and approve the code.
+3. Pick a bounty; read its task, rules, rewards and phases.
+4. Fetch its kit: `curl -sSL "https://make.fun/c/<slug>/kit" | tar xz`.
+5. Start a *fresh* agent session in a *new* public repository — after the bounty opens.
+6. Build there, add an OSI license, and let the agent write the files.
+7. `bundle` the transcripts, run the kit's `check`, then `submit`.
+8. Read `status`; fix whatever the checks name; resubmit inside the daily quota.
+9. Place, then `claim` — USDC lands in your wallet on Solana.
+
 ## Before you start: the toolbox
 
 You need four things, and you probably have three of them already:
@@ -132,7 +147,10 @@ before the opening cannot be entered, full stop.
 Then:
 
 1. Create a fresh public GitHub repository for the entry and clone it next to the kit.
-2. Open a new session of your agent in that repository and let it work there.
+2. Open a new session of your agent in that repository and let it work there. Keep the
+   whole build in that one session, in that one directory: transcripts are gathered per
+   repository, and work scattered across chats and folders is work the bundle cannot
+   find.
 3. If the kit has a `starter/`, treat it as scaffolding — a working skeleton that meets
    the rules — and have your agent reshape it into your entry. It is a starting point,
    not a result.
@@ -235,6 +253,26 @@ node cli/makefun.mjs claim --claim <claim-id> \
 `--us-person` answers the one question on the claim screen — say `yes` if you are a US
 person. The USDC moves on Solana to your own wallet after an automatic sanctions screen,
 and a tax form is requested only where US law actually requires one.
+
+## Mistakes that cost first-timers an evening
+
+Collected from real first entries (several of them mine). Every one is cheap to avoid and
+annoying to discover at 11 p.m.:
+
+- **Building in a session that started before the bounty opened.** Those sessions cannot
+  be entered, however good the work is. New bounty, new session.
+- **Submitting the starter with the labels changed.** The transcript gate can tell the
+  kit's lines from yours. Reshape the starter properly or start from a blank page.
+- **Writing the entry somewhere else and pasting it in.** However it was written, a file
+  that arrives fully formed earns no authored lines. Type it — through your agent — in
+  the session.
+- **Skipping the local check to save five minutes.** A server-side rejection burns one
+  of the day's submissions and tells you exactly what the local check would have.
+- **Guessing at a rejection.** The status page names the failed check and its fix. Read
+  it literally before changing anything; most fixes are ten minutes, not a rebuild.
+- **Letting the repository and the account drift apart.** The repo must belong to the
+  GitHub account linked to the make.fun account that enters it. If you switch accounts
+  mid-contest, the entry stops being yours.
 
 ## Field notes: what a handful of entries taught me
 
